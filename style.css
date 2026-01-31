@@ -371,6 +371,12 @@ body::after {
         padding: 0.8em 1.5em;
         /* Smaller padding */
         font-size: 1rem;
+        max-width: 95vw;
+        /* Ensure it never exceeds screen width */
+        white-space: normal;
+        /* Allow text to wrap */
+        word-break: break-word;
+        /* Break long words if necessary */
     }
 
     .success-img {

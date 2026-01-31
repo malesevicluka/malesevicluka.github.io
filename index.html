@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Za Laru ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Start Overlay -->
+    <div id="start-overlay">
+        <div class="overlay-content">
+            <div class="envelope">💌</div> <!-- Simple emoji icon -->
+            <p>Imaš pismo...</p>
+            <button id="start-btn">Klikni za otvaranje ❤️</button>
+        </div>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bg-music" src="music.mp3" loop></audio>
+
+    <!-- Fireworks Canvas -->
+    <canvas id="fireworks"></canvas>
+
+    <div class="container">
+        <!-- Cute Bear GIF Header -->
+        <div class="gif-container">
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2RsdnZsZWFwbnV3OGx3bnV3OGx3bnV3OGx3bnV3OGx3bnV3OGx3bnV3OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/KztT2c4u8mYYUiMKdJ/giphy.gif"
+                alt="Cute Bear" class="header-gif">
+        </div>
+
+        <div class="content">
+            <h1 class="question" data-text="Lara, hoćeš li biti moja Valentina?"></h1>
+            <div class="buttons">
+                <button id="yes-btn" class="btn yes-btn">Da</button>
+                <button id="no-btn" class="btn no-btn">Ne</button>
+            </div>
+
+            <div id="success-message" class="hidden">
+                <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif" alt="Happy Couple"
+                    class="success-img">
+                <h2>Znao sam! ❤️</h2>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

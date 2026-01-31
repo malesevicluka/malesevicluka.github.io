@@ -1,0 +1,428 @@
+:root {
+    --primary-color: #ff4d6d;
+    --secondary-color: #ff8fa3;
+    --bg-color: #fff0f3;
+    --text-color: #590d22;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(135deg, #fff0f3 0%, #ffe5ea 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    cursor: default;
+}
+
+/* Background decoration */
+body::before,
+body::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    filter: blur(80px);
+    opacity: 0.4;
+    z-index: -1;
+    animation: float 6s ease-in-out infinite;
+}
+
+body::before {
+    top: -50px;
+    left: -50px;
+}
+
+body::after {
+    bottom: -50px;
+    right: -50px;
+    animation-delay: -3s;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    z-index: 10;
+}
+
+.header-gif {
+    height: 120px;
+    margin-bottom: -20px;
+    /* Overlap slightly with content for cute effect */
+    z-index: 20;
+    position: relative;
+}
+
+.content {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 3rem 2rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.question {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin-bottom: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    min-height: 2.4em;
+    display: inline-block;
+    border-right: 3px solid var(--primary-color);
+    animation: blink-caret 0.75s step-end infinite;
+    white-space: pre-wrap;
+}
+
+.question.typing-done {
+    border-right: none;
+    min-height: auto;
+    /* Remove reserved space */
+    margin-bottom: 0.2rem;
+    /* Pull content up */
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    position: relative;
+    align-items: center;
+
+    /* Reveal logic */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 1s ease, transform 1s ease;
+    pointer-events: none;
+    /* Prevent clicks while hidden */
+}
+
+.buttons.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.btn {
+    padding: 1em 2.5em;
+    /* Use em so padding controls scale with font-size */
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease-out;
+}
+
+.yes-btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+}
+
+.yes-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 77, 109, 0.6);
+}
+
+.no-btn {
+    background: white;
+    color: var(--text-color);
+    border: 2px solid var(--secondary-color);
+    /* Prepare for drop animation */
+    transition: all 0.3s ease-out;
+}
+
+/* Exploding "No" Button Animation */
+@keyframes dropOff {
+    0% {
+        transform: rotate(0deg) translateY(0);
+    }
+
+    20% {
+        transform: rotate(20deg) translateY(-20px);
+    }
+
+    100% {
+        transform: rotate(720deg) translateY(100vh);
+        opacity: 0;
+    }
+}
+
+.btn.crushed {
+    animation: dropOff 1.5s ease-in forwards !important;
+    pointer-events: none;
+    position: absolute;
+    /* Take out of flow so Yes button centers or just looks dominant */
+}
+
+/* Success Message */
+#success-message {
+    margin-top: 0;
+    /* Tighten up against question */
+    animation: fadeInUp 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.success-img {
+    width: 200px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    animation: bounceIn 1s 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+    opacity: 0;
+    transform: scale(0);
+}
+
+.date-voucher {
+    background: white;
+    padding: 1.5rem 3rem;
+    border: 2px dashed var(--primary-color);
+    border-radius: 15px;
+    color: var(--text-color);
+    font-family: 'Outfit', sans-serif;
+    text-align: center;
+    transform: rotate(-2deg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    animation: float 4s ease-in-out infinite;
+}
+
+.date-voucher h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.date-voucher p {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Fireworks Canvas */
+#fireworks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1500;
+    /* Above everything else */
+    pointer-events: none;
+    display: none;
+    /* Hidden until success */
+}
+
+/* Cursor Trail Heart */
+.trail-heart {
+    position: fixed;
+    height: 20px;
+    width: 20px;
+    background-color: var(--primary-color);
+    clip-path: polygon(50% 0%, 100% 35%, 82% 100%, 50% 80%, 18% 100%, 0% 35%);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 9999;
+    animation: trailFade 1s linear forwards;
+}
+
+.heart {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    background: var(--primary-color);
+    transform: rotate(45deg);
+    pointer-events: none;
+    z-index: 500;
+    animation: flyAway 1s ease-out forwards;
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.heart::before {
+    top: -50%;
+    left: 0;
+}
+
+.heart::after {
+    left: -50%;
+    top: 0;
+}
+
+/* Floating Hearts Background */
+.bg-heart {
+    position: fixed;
+    bottom: -10vh;
+    font-size: 2rem;
+    opacity: 0.5;
+    z-index: 0;
+    animation: floatUp linear infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: var(--primary-color);
+    }
+}
+
+@keyframes flyAway {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(45deg) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(45deg) scale(0) translateY(-50px);
+    }
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Start Overlay */
+#start-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 240, 243, 0.95);
+    /* Very light opaque pink */
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    /* Topmost */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 0.8s ease;
+}
+
+#start-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.overlay-content {
+    text-align: center;
+    animation: bounceIn 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.envelope {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.overlay-content p {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+}
+
+#start-btn {
+    padding: 1rem 3rem;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+    transition: transform 0.2s;
+}
+
+#start-btn:hover {
+    transform: scale(1.05);
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

@@ -332,6 +332,67 @@ body::after {
     }
 }
 
+@keyframes floatAway {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(var(--rot));
+    }
+}
+
+/* Mobile Optimization */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    .question {
+        font-size: 1.8rem;
+        /* Smaller text */
+        margin-bottom: 0.5rem;
+    }
+
+    .header-gif {
+        height: 100px;
+        /* Smaller bear */
+    }
+
+    .buttons {
+        gap: 1rem;
+        flex-wrap: wrap;
+        /* Allow wrapping so No doesn't get squashed */
+    }
+
+    .btn {
+        padding: 0.8em 1.5em;
+        /* Smaller padding */
+        font-size: 1rem;
+    }
+
+    .success-img {
+        width: 150px;
+        /* Smaller success GIF */
+    }
+
+    /* Start Overlay adjustments */
+    .envelope {
+        font-size: 3.5rem;
+    }
+
+    .overlay-content p {
+        font-size: 1.2rem;
+    }
+
+    #start-btn {
+        padding: 0.8rem 2rem;
+        font-size: 1.1rem;
+    }
+}
+
 @keyframes flyAway {
     0% {
         opacity: 1;

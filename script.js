@@ -93,7 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // === EXPANDING BUTTON LOGIC ===
     let yesSize = 1.4;
     noBtn.addEventListener('click', () => {
-        yesSize *= 1.5;
+        // Slower growth on mobile to prevent layout breakage too fast
+        const growthFactor = window.innerWidth < 600 ? 1.2 : 1.5;
+        yesSize *= growthFactor;
         yesBtn.style.fontSize = `${yesSize}rem`;
         // Removed the "crushed" logic as requested. 
         // The No button will just stay there (or move naturally as layout flows).
